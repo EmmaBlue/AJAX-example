@@ -25,7 +25,7 @@
     //    $rows[] = $row;
    // }
 
-    if (isset($_GET["carModel"])) { //check for a parameter
+    if (isset($_GET["carModel"])) { //check for a parameter ?carModel=R58
 
         $car = $_GET["carModel"];
         $myQuery = "SELECT * FROM mainmodel WHERE model = '$car'";
@@ -36,11 +36,14 @@
         while($row = mysqli_fetch_assoc($result)) {
 
             $rows[] = $row;
+            
         }
+
+         //send the entire result set as a json encoded array
+        echo json_encode($rows);
+
+        // 
     }
 
-    //send the entire result set as a json encoded array
-    echo json_encode($rows);
-
-    // 
+   
 ?> 

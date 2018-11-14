@@ -7,12 +7,59 @@
 
         el : "#app",
         data : {
+            modelName: '', 
+            modelPrice: '', 
+            modelDetails: '', 
+        },
 
+        mounted : function() {
+            // listen for when Vue is done building itself 
+            console.log('mounted');
+
+            //debugger
+
+            this.addPreloader(document.querySelector('.modelInfo'));
+
+             //get the data for the first car
+             document.querySelector("F55").click();
+
+    
+        },
+    
+        updated : function() {
+            // listen for when Vue icompletes its render cycle
+            console.log('updated');
+
+            //remove the proloader after the page updates
+
+            let preloader = document.querySelector('.preloader-wrapper');
+
+            setTimeout(function(){
+
+                preloader.classList.add('hidden');
+                document.body.appendChild('.preloader');
+
+            }, 3000)
+
+    
         },
         methods: {
 
+            addPreloader(parentEl) {
+
+                parentEl.appendChild(document.querySelector('.preloader-wrapper'));
+
+                bodymovin.loadAnimation({
+                    wrapper: document.querySelector('.preloader'),
+                    animType: 'svg', 
+                    loop: true,
+                    path: './data/search.json'
+
+
+                });
+            },
+
             getData(e) {
-                debugger;
                 //this.id gives you id of car that you've clicked on 
                 let targetURL = `./includes/connect.php?modelNo=${e.currentTarget.id}`;
                 fetch(targetURL)
@@ -22,7 +69,7 @@
                 .then (data => {
                     
                     console.log(data);
-                    //parseCarData(data[0]);
+                    this.showCarData(data[0]);
                 })
                 //show error message in case of error
                 .catch(function(error) {
@@ -30,6 +77,13 @@
                     console.log(error);
                 });
         
+            },
+
+            showCarData(data) {
+
+                this.carModel = data.modelName;
+                this.carDescription = data.modelDetails;
+                this.carPricing = data.pricing;
             }
 
         }

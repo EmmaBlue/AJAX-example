@@ -53,12 +53,19 @@
       </div>
 
       <!-- model info block  -->
+      <!-- preloader goes here => can use this anywhere-->
+
+      <div class="preloader-wrapper">
+          <!-- draw the preloader animation-->
+          <div class="preloader"></div>
+
+      </div>
 
       <!-- ==== POPULATE THESE ELEMENTS WITH THE QUERY RESULT === -->
       <div class="small-6 columns modelInfo">
-          <h4 class="modelName">Model Name Here</h4>
-          <p class="priceInfo">Pricing here</p>
-          <p class="modelDetails">Model details here</p>
+          <h4 v-on:click="getData" class="modelName">{{modelName}}</h4>
+          <p v-on:click="getData" class="priceInfo">{{modelPrice}}</p>
+          <p v-on:click="getData" class="modelDetails">{{modelDetails}}</p>
       </div>
     </div> <!-- end model info / thumbs -->
     <hr>
